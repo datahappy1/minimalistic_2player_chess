@@ -4,22 +4,6 @@
     <meta charset="UTF-8">
     <title>2 player minimalistic chess</title>
     <link rel="stylesheet" type="text/css" href="css/main.css">
-    <script>
-        // Get the container element
-        var divContainer = document.getElementById("board");
-
-        // Get all divs with class="draggable" inside the container
-        var ds = divContainer.getElementsByClassName("draggable");
-
-        // Loop through the divs and add the active class to the current/clicked div
-        for (var i = 0; i < ds.length; i++) {
-          ds[i].addEventListener("click", function() {
-            var current = document.getElementsByClassName("active");
-            current[0].className = current[0].className.replace(" active", "");
-            this.className += " active";
-          });
-        }
-    </script>
 </head>
 <body>
 <table id="board" class="chessboard">
