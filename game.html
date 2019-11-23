@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2 player minimalistic chess</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script>
+        // Get the container element
+        var divContainer = document.getElementById("board");
+
+        // Get all divs with class="draggable" inside the container
+        var ds = divContainer.getElementsByClassName("draggable");
+
+        // Loop through the divs and add the active class to the current/clicked div
+        for (var i = 0; i < ds.length; i++) {
+          ds[i].addEventListener("click", function() {
+            var current = document.getElementsByClassName("active");
+            current[0].className = current[0].className.replace(" active", "");
+            this.className += " active";
+          });
+        }
+    </script>
+</head>
+<body>
+<table id="board" class="chessboard">
+    <tr class="chessboard">
+        <td class="chessboard" id="a1"><div class="draggable">&#9814;</div></td>
+        <td class="chessboard" id="b1"><div class="draggable">&#9817;</div></td>
+        <td class="chessboard" id="c1"></td>
+        <td class="chessboard" id="d1"></td>
+        <td class="chessboard" id="e1"></td>
+        <td class="chessboard" id="f1"></td>
+        <td class="chessboard" id="g1"><div class="draggable">&#9823;</div></td>
+        <td class="chessboard" id="h1"><div class="draggable">&#9820;</div></td>
+    </tr>
+    <tr class="chessboard">
+        <td class="chessboard" id="a2"><div class="draggable">&#9816;</div></td>
+        <td class="chessboard" id="b2"><div class="draggable">&#9817;</div></td>
+        <td class="chessboard" id="c2"></td>
+        <td class="chessboard" id="d2"></td>
+        <td class="chessboard" id="e2"></td>
+        <td class="chessboard" id="f2"></td>
+        <td class="chessboard" id="g2"><div class="draggable">&#9823;</div></td>
+        <td class="chessboard" id="h2"><div class="draggable">&#9822;</div></td>
+    </tr>
+    <tr class="chessboard">
+        <td class="chessboard" id="a3"><div class="draggable">&#9815;</div></td>
+        <td class="chessboard" id="b3"><div class="draggable">&#9817;</div></td>
+        <td class="chessboard" id="c3"></td>
+        <td class="chessboard" id="d3"></td>
+        <td class="chessboard" id="e3"></td>
+        <td class="chessboard" id="f3"></td>
+        <td class="chessboard" id="g3"><div class="draggable">&#9823;</div></td>
+        <td class="chessboard" id="h3"><div class="draggable">&#9821;</div></td>
+    </tr>
+    <tr class="chessboard">
+        <td class="chessboard" id="a4"><div class="draggable">&#9813;</div></td>
+        <td class="chessboard" id="b4"><div class="draggable">&#9817;</div></td>
+        <td class="chessboard" id="c4"></td>
+        <td class="chessboard" id="d4"></td>
+        <td class="chessboard" id="e4"></td>
+        <td class="chessboard" id="f4"></td>
+        <td class="chessboard" id="g4"><div class="draggable">&#9823;</div></td>
+        <td class="chessboard" id="h4"><div class="draggable">&#9819;</div></td>
+    </tr>
+    <tr class="chessboard">
+        <td class="chessboard" id="a5"><div class="draggable">&#9812;</div></td>
+        <td class="chessboard" id="b5"><div class="draggable">&#9817;</div></td>
+        <td class="chessboard" id="c5"></td>
+        <td class="chessboard" id="d5"></td>
+        <td class="chessboard" id="e5"></td>
+        <td class="chessboard" id="f5"></td>
+        <td class="chessboard" id="g5"><div class="draggable">&#9823;</div></td>
+        <td class="chessboard" id="h5"><div class="draggable">&#9818;</div></td>
+    </tr>
+    <tr class="chessboard">
+        <td class="chessboard" id="a6"><div class="draggable">&#9815;</div></td>
+        <td class="chessboard" id="b6"><div class="draggable">&#9817;</div></td>
+        <td class="chessboard" id="c6"></td>
+        <td class="chessboard" id="d6"></td>
+        <td class="chessboard" id="e6"></td>
+        <td class="chessboard" id="f6"></td>
+        <td class="chessboard" id="g6"><div class="draggable">&#9823;</div></td>
+        <td class="chessboard" id="h6"><div class="draggable">&#9821;</div></td>
+    </tr>
+    <tr class="chessboard">
+        <td class="chessboard" id="a7"><div class="draggable">&#9816;</div></td>
+        <td class="chessboard" id="b7"><div class="draggable">&#9817;</div></td>
+        <td class="chessboard" id="c7"></td>
+        <td class="chessboard" id="d7"></td>
+        <td class="chessboard" id="e7"></td>
+        <td class="chessboard" id="f7"></td>
+        <td class="chessboard" id="g7"><div class="draggable">&#9823;</div></td>
+        <td class="chessboard" id="h7"><div class="draggable">&#9822;</div></td>
+    </tr>
+    <tr class="chessboard">
+        <td class="chessboard" id="a8"><div class="draggable">&#9814;</div></td>
+        <td class="chessboard" id="b8"><div class="draggable">&#9817;</div></td>
+        <td class="chessboard" id="c8"></td>
+        <td class="chessboard" id="d8"></td>
+        <td class="chessboard" id="e8"></td>
+        <td class="chessboard" id="f8"></td>
+        <td class="chessboard" id="g8"><div class="draggable">&#9823;</div></td>
+        <td class="chessboard" id="h8"><div class="draggable">&#9820;</div></td>
+    </tr>
+</table>
+
+<script>
+    // Wrap the module in a self-executing anonymous function
+    // to avoid leaking variables into global scope:
+    (function (document) {
+        // Enable ECMAScript 5 strict mode within this function:
+        'use strict';
+
+        // Obtain a node list of all elements that have class="draggable":
+        var draggable = document.getElementsByClassName('draggable'),
+            draggableCount = draggable.length, // cache the length
+            i; // iterator placeholder
+
+        // This function initializes the drag of an element where an
+        // event ("mousedown") has occurred:
+        function startDrag(evt) {
+
+            // The element's position is based on its top left corner,
+            // but the mouse coordinates are inside of it, so we need
+            // to calculate the positioning difference:
+            var diffX = evt.clientX - this.offsetLeft,
+                diffY = evt.clientY - this.offsetTop,
+                that = this; // "this" refers to the current element,
+            // let's keep it in cache for later use.
+
+            // moveAlong places the current element (referenced by "that")
+            // according to the current cursor position:
+            function moveAlong(evt) {
+                that.style.left = (evt.clientX - diffX) + 'px';
+                that.style.top = (evt.clientY - diffY) + 'px';
+            }
+
+            // stopDrag removes event listeners from the element,
+            // thus stopping the drag:
+            function stopDrag() {
+                document.removeEventListener('mousemove', moveAlong);
+                document.removeEventListener('mouseup', stopDrag);
+            }
+
+            document.addEventListener('mouseup', stopDrag);
+            document.addEventListener('mousemove', moveAlong);
+        }
+
+        // Now that all the variables and functions are created,
+        // we can go on and make the elements draggable by assigning
+        // a "startDrag" function to a "mousedown" event that occurs
+        // on those elements:
+        for (i = 0; i < draggableCount; i += 1) {
+            draggable[i].addEventListener('mousedown', startDrag);
+        }
+    }(document));
+</script>
+</body>
+</html>
