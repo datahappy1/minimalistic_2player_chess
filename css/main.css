@@ -1,10 +1,16 @@
+#deck {
+    margin: 1px auto;
+    background: none;
+    border: 1px solid #333;
+}
+
 table.chessboard {
     margin: 1px auto;
     background:  #cccccc;
     border: 5px solid #333;
 }
 td.chessboard {
-    width: 61px; height: 61px;
+    width: 71px; height: 71px;
     border: 2px solid #333;
 }
 td.chessboard.active-cell {
@@ -18,12 +24,8 @@ tr.chessboard:nth-child(even) td.chessboard:nth-child(odd) {
 
 /* Style the draggable class*/
 .draggable {
-   position: absolute;
-   margin-left: 10px;
-   margin-top: -10px;
-   font-size: 38px;
-   width: 40px;
-   height: 40px;
+   width: 70px;
+   height: 70px;
    -webkit-user-select: none;
    -moz-user-select: none;
    -ms-user-select: none;
@@ -31,6 +33,33 @@ tr.chessboard:nth-child(even) td.chessboard:nth-child(odd) {
    user-select: none;
    cursor: pointer;
 }
-.draggable:hover {
+
+/* Style the figure class*/
+.figure {
+   font-size: 30px;
+   width: 35px;
+   height: 35px;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   -khtml-user-select: none;
+   user-select: none;
+   cursor: pointer;
+}
+.figure:hover {
   color: red;
+  background: #ffff99;
+}
+
+/* Style the draggable_lost_figures class*/
+.draggable_lost_figures {
+   width: 100%;
+   height: 630px;
+   position:relative;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   -khtml-user-select: none;
+   user-select: none;
+   cursor: pointer;
 }
