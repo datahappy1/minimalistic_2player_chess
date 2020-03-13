@@ -29,10 +29,10 @@
             var childElement = document.getElementById(data);
             childElement.style.backgroundColor = "transparent";
 
-            if (ev.target.parentNode.id) {
+            if (ev.target.parentNode.id && ev.target.parentNode.getElementsByTagName('*').length < 3) {
                 if (childElement) {
                     ev.target.appendChild(childElement);
-                    console.log(data + ":" + ev.target.parentNode.id);
+                    //console.log(data + ":" + ev.target.parentNode.id);
                 }
             }
         }

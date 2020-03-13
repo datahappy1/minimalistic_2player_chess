@@ -1,5 +1,5 @@
 ## A minimalistic 2 player chess game using HTML, CSS and JavaScript
-A very simple and minimalistic HTML5, CSS, JavaScript exercise allowing 2 players to play together a game
+A minimalistic HTML5, CSS, JavaScript exercise allowing 2 players to play together a game
 of chess in the browser. Basically just messin' around with the HTML5 Drag/Drop API.
 
 #### Screenshot:
