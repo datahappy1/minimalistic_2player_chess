@@ -37,6 +37,27 @@
             }
         }
 
+        function drop_lost(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            var childElement = document.getElementById(data);
+            childElement.style.backgroundColor = "transparent";
+
+            if (data.startsWith("black")) {
+                var color = "black";
+            }
+            else {
+                var color = "white";
+            }
+
+            if (ev.target.parentNode.id && ev.target.parentNode.id.endsWith(color.toString()) ) {
+                if (childElement) {
+                    ev.target.appendChild(childElement);
+                    //console.log(data + ":" + ev.target.parentNode.id);
+                }
+            }
+        }
+
     </script>
 
 </head>
@@ -46,7 +67,7 @@
 <table id="deck">
     <tr>
         <td colspan="8" id="lost_figures_white">
-            <div class="draggable_lost_figures" ondrop="drop(event)" ondragover="allowDrop(event)">lost white figures
+            <div class="draggable_lost_figures" ondrop="drop_lost(event)" ondragover="allowDrop(event)">lost white figures
             </div>
         </td>
         <td>
@@ -359,7 +380,7 @@
 
         </td>
         <td id="lost_figures_black">
-            <div class="draggable_lost_figures" ondrop="drop(event)" ondragover="allowDrop(event)">lost black figures
+            <div class="draggable_lost_figures" ondrop="drop_lost(event)" ondragover="allowDrop(event)">lost black figures
             </div>
         </td>
     </tr>
