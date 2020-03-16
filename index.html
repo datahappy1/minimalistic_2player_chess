@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>2 player minimalistic chess</title>
     <link rel="stylesheet" type="text/css" href="css/main.css">
+
     <script>
         function allowDrop(ev) {
             ev.preventDefault();
@@ -12,52 +13,64 @@
 
         function drag(ev) {
             ev.dataTransfer.setData("text", ev.target.id);
-            var data = ev.dataTransfer.getData("text");
-            var childElement = document.getElementById(data)
+            var draggedObject = ev.dataTransfer.getData("text");
+            var draggedObjectById = document.getElementById(draggedObject)
 
-            if (childElement.id.startsWith("black")) {
-                childElement.style.backgroundColor = "#ff3333";
-            }
-            else {
-                childElement.style.backgroundColor = "#3366ff";
+            if (draggedObjectById.id.startsWith("black")) {
+                draggedObjectById.style.backgroundColor = "#ff3333";
+            } else {
+                draggedObjectById.style.backgroundColor = "#3366ff";
             }
         }
 
         function drop(ev) {
             ev.preventDefault();
-            var data = ev.dataTransfer.getData("text");
-            var childElement = document.getElementById(data);
-            childElement.style.backgroundColor = "transparent";
+            var droppedObject = ev.dataTransfer.getData("text");
+            var droppedObjectById = document.getElementById(droppedObject);
+            var targetObjectParent = ev.target.parentNode
+            var targetObjectParentById = targetObjectParent.id
+            var targetObjectParentElements = targetObjectParent.getElementsByTagName('*')
 
-            if (ev.target.parentNode.id && ev.target.parentNode.getElementsByTagName('*').length < 3) {
-                if (childElement) {
-                    ev.target.appendChild(childElement);
-                    //console.log(data + ":" + ev.target.parentNode.id);
+            if (droppedObject.startsWith("black")) {
+                var color = "black";
+            } else {
+                var color = "white";
+            }
+
+            droppedObjectById.style.backgroundColor = "transparent";
+
+            if (targetObjectParentById && targetObjectParentElements.length < 3) {
+                if (targetObjectParentElements[1] != null) {
+                    if (targetObjectParentElements[1].id.startsWith(color) == false) {
+                        ev.target.appendChild(droppedObjectById);
+                    }
+                } else {
+                    ev.target.appendChild(droppedObjectById);
                 }
+                //console.log(droppedObject + ":" + targetObjectParentById);
             }
         }
 
         function drop_lost(ev) {
             ev.preventDefault();
-            var data = ev.dataTransfer.getData("text");
-            var childElement = document.getElementById(data);
-            childElement.style.backgroundColor = "transparent";
+            var droppedObject = ev.dataTransfer.getData("text");
+            var droppedObjectById = document.getElementById(droppedObject);
+            var targetObjectParent = ev.target.parentNode
+            var targetObjectParentById = targetObjectParent.id
 
-            if (data.startsWith("black")) {
+            if (droppedObject.startsWith("black")) {
                 var color = "black";
-            }
-            else {
+            } else {
                 var color = "white";
             }
 
-            if (ev.target.parentNode.id && ev.target.parentNode.id.endsWith(color.toString()) ) {
-                if (childElement) {
-                    ev.target.appendChild(childElement);
-                    //console.log(data + ":" + ev.target.parentNode.id);
-                }
+            droppedObjectById.style.backgroundColor = "transparent";
+
+            if (targetObjectParentById && targetObjectParentById.startsWith(color)) {
+                ev.target.appendChild(droppedObjectById);
+                //console.log(droppedObject + ":" + targetObjectParentById);
             }
         }
-
     </script>
 
 </head>
@@ -66,7 +79,7 @@
 
 <table id="deck">
     <tr>
-        <td colspan="8" id="lost_figures_white">
+        <td colspan="8" id="white_lost_figures">
             <div class="draggable_lost_figures" ondrop="drop_lost(event)" ondragover="allowDrop(event)">lost white figures
             </div>
         </td>
@@ -379,7 +392,7 @@
             </table>
 
         </td>
-        <td id="lost_figures_black">
+        <td id="black_lost_figures">
             <div class="draggable_lost_figures" ondrop="drop_lost(event)" ondragover="allowDrop(event)">lost black figures
             </div>
         </td>
