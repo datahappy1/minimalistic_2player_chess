@@ -2,8 +2,9 @@
 A minimalistic HTML5, CSS, JavaScript exercise allowing 2 players to play together a game
 of chess in the browser. Basically just messin' around with the HTML5 Drag/Drop API.
 
-You can play here:
-https://datahappy1.github.io/minimalistic_2player_chess/
+You can play directly from the browser here:
+<a href="https://datahappy1.github.io/minimalistic_2player_chess/" target="_blank">https://datahappy1.github.io/minimalistic_2player_chess/</a>
+
 
 #### Screenshot:
 ![alt text][screens]
