@@ -8,7 +8,7 @@
 
     <script>
     function allowDrop(ev) {
-	    ev.preventDefault();
+        ev.preventDefault();
     }
 
     function drag(ev) {
@@ -48,7 +48,7 @@
         }
         // if the target is in the game canvas board check that there is no more than 2 figures already
         // and check that if there is already a figure, it's got the opposite color as the dragged figure
-          else {
+        else {
             if (targetObjectParentById && targetObjectParentElements.length < 3) {
                 if (targetObjectParentElements[1] != null) {
                     if (targetObjectParentElements[1].id.startsWith(droppedFigureColor) == false) {
