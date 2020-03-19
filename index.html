@@ -7,70 +7,60 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
 
     <script>
-        function allowDrop(ev) {
-            ev.preventDefault();
+    function allowDrop(ev) {
+	    ev.preventDefault();
+    }
+
+    function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+        var draggedObject = ev.dataTransfer.getData("text");
+        var draggedObjectById = document.getElementById(draggedObject)
+
+        if (draggedObjectById.id.startsWith("black")) {
+            draggedObjectById.style.backgroundColor = "#ff3333";
+        } else {
+            draggedObjectById.style.backgroundColor = "#3366ff";
+        }
+    }
+
+    function drop(ev) {
+        ev.preventDefault();
+        var droppedObject = ev.dataTransfer.getData("text");
+        var droppedObjectById = document.getElementById(droppedObject);
+        var targetObjectParent = ev.target.parentNode
+        var targetObjectParentById = targetObjectParent.id
+        var targetObjectParentElements = targetObjectParent.getElementsByTagName('*')
+
+        if (droppedObject.startsWith("black")) {
+            var droppedFigureColor = "black";
+        } else {
+            var droppedFigureColor = "white";
         }
 
-        function drag(ev) {
-            ev.dataTransfer.setData("text", ev.target.id);
-            var draggedObject = ev.dataTransfer.getData("text");
-            var draggedObjectById = document.getElementById(draggedObject)
+        droppedObjectById.style.backgroundColor = "transparent";
 
-            if (draggedObjectById.id.startsWith("black")) {
-                draggedObjectById.style.backgroundColor = "#ff3333";
-            } else {
-                draggedObjectById.style.backgroundColor = "#3366ff";
+        // if the target is the lost figures section of the board check that color of the lost figure
+        // corresponds with the name of the lost figures section
+        if (targetObjectParentById.endsWith("lost_figures")) {
+            if (targetObjectParentById && targetObjectParentById.startsWith(droppedFigureColor)) {
+                ev.target.appendChild(droppedObjectById);
             }
         }
-
-        function drop(ev) {
-            ev.preventDefault();
-            var droppedObject = ev.dataTransfer.getData("text");
-            var droppedObjectById = document.getElementById(droppedObject);
-            var targetObjectParent = ev.target.parentNode
-            var targetObjectParentById = targetObjectParent.id
-            var targetObjectParentElements = targetObjectParent.getElementsByTagName('*')
-
-            if (droppedObject.startsWith("black")) {
-                var color = "black";
-            } else {
-                var color = "white";
-            }
-
-            droppedObjectById.style.backgroundColor = "transparent";
-
+        // if the target is in the game canvas board check that there is no more than 2 figures already
+        // and check that if there is already a figure, it's got the opposite color as the dragged figure
+          else {
             if (targetObjectParentById && targetObjectParentElements.length < 3) {
                 if (targetObjectParentElements[1] != null) {
-                    if (targetObjectParentElements[1].id.startsWith(color) == false) {
+                    if (targetObjectParentElements[1].id.startsWith(droppedFigureColor) == false) {
                         ev.target.appendChild(droppedObjectById);
                     }
                 } else {
                     ev.target.appendChild(droppedObjectById);
                 }
-                //console.log(droppedObject + ":" + targetObjectParentById);
             }
         }
 
-        function drop_lost(ev) {
-            ev.preventDefault();
-            var droppedObject = ev.dataTransfer.getData("text");
-            var droppedObjectById = document.getElementById(droppedObject);
-            var targetObjectParent = ev.target.parentNode
-            var targetObjectParentById = targetObjectParent.id
-
-            if (droppedObject.startsWith("black")) {
-                var color = "black";
-            } else {
-                var color = "white";
-            }
-
-            droppedObjectById.style.backgroundColor = "transparent";
-
-            if (targetObjectParentById && targetObjectParentById.startsWith(color)) {
-                ev.target.appendChild(droppedObjectById);
-                //console.log(droppedObject + ":" + targetObjectParentById);
-            }
-        }
+    }
     </script>
 
 </head>
@@ -80,7 +70,7 @@
 <table id="deck">
     <tr>
         <td colspan="8" id="white_lost_figures">
-            <div class="draggable_lost_figures" ondrop="drop_lost(event)" ondragover="allowDrop(event)">lost white figures
+            <div class="draggable_lost_figures" ondrop="drop(event)" ondragover="allowDrop(event)">lost white figures
             </div>
         </td>
         <td>
@@ -393,7 +383,7 @@
 
         </td>
         <td id="black_lost_figures">
-            <div class="draggable_lost_figures" ondrop="drop_lost(event)" ondragover="allowDrop(event)">lost black figures
+            <div class="draggable_lost_figures" ondrop="drop(event)" ondragover="allowDrop(event)">lost black figures
             </div>
         </td>
     </tr>
