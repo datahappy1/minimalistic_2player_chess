@@ -1,6 +1,7 @@
+/*Div layout start*/
 .lt-grid-container {
   display: grid;
-  grid-template-columns: 0.4fr 2.2fr 0.4fr;
+  grid-template-columns: 1fr 640px 1fr;
   grid-template-rows: 0.1fr 1.9fr;
   gap: 1px 1px;
   grid-template-areas:
@@ -8,18 +9,18 @@
     "lt-white_lost_figures lt-chessboard lt-black_lost_figures";
 }
 
-.lt-white_lost_figures { grid-area: lt-white_lost_figures; }
+.lt-white_lost_figures { grid-area: lt-white_lost_figures;}
 
-.lt-chessboard { grid-area: lt-chessboard; }
+.lt-chessboard { grid-area: lt-chessboard;}
 
-.lt-black_lost_figures { grid-area: lt-black_lost_figures; }
+.lt-black_lost_figures { grid-area: lt-black_lost_figures;}
 
-.lt-menu { grid-area: lt-menu; }
+.lt-menu { grid-area: lt-menu;}
 
 @media all and (-ms-high-contrast:none) {
   .lt-grid-container {
     display: -ms-grid;
-    -ms-grid-columns: 0.4fr 2.2fr 0.4fr;
+    -ms-grid-columns: 1fr 640px 1fr;
     -ms-grid-rows: 0.1fr 1.9fr;
   }
 
@@ -51,11 +52,9 @@
     -ms-grid-column-span: 1;
   }
 }
+/*Div layout end*/
 
-
-
-
-
+/*Board layout start*/
 table.chessboard {
     margin: 1px auto;
     background:  #ffdf80;
@@ -76,7 +75,6 @@ tr.chessboard:nth-child(even) td.chessboard:nth-child(odd) {
     background: #bf8040;
 }
 
-/* Style the draggable class*/
 .draggable {
    width: 70px;
    height: 70px;
@@ -88,7 +86,6 @@ tr.chessboard:nth-child(even) td.chessboard:nth-child(odd) {
    cursor: pointer;
 }
 
-/* Style the figure class*/
 .figure {
    font-size: 60px;
    width: 70px;
@@ -102,3 +99,4 @@ tr.chessboard:nth-child(even) td.chessboard:nth-child(odd) {
    user-select: none;
    cursor: pointer;
 }
+/*Board layout end*/

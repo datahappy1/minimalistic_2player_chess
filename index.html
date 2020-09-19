@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>2 player minimalistic chess</title>
+    <title>2 Player Chess Game</title>
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <script src="js/drag_and_drop_api.js"></script>
+    <script src="js/figure_moves.js"></script>
 </head>
 <body>
 
 <div class="lt-grid-container">
-    <div class="lt-white_lost_figures" id="white_lost_figures" ondrop="drop(event)" ondragover="allowDrop(event)"
-         ondragleave="leave(event)"></div>
+    <div class="lt-white_lost_figures" id="white_lost_figures"></div>
 
     <div class="lt-chessboard">
         <table id="board" class="chessboard">
@@ -383,8 +383,7 @@
         </table>
     </div>
 
-    <div class="lt-black_lost_figures" id="black_lost_figures" ondrop="drop(event)" ondragover="allowDrop(event)"
-         ondragleave="leave(event)"></div>
+    <div class="lt-black_lost_figures" id="black_lost_figures"></div>
 
     <div class="lt-menu"><button onclick="location.reload()">Reset</button></div>
 </div>
