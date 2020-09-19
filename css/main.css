@@ -1,12 +1,64 @@
-#deck {
-    margin: 1px auto;
-    background: none;
-    border: 1px solid #333;
+.lt-grid-container {
+  display: grid;
+  grid-template-columns: 0.4fr 2.2fr 0.4fr;
+  grid-template-rows: 0.1fr 1.9fr;
+  gap: 1px 1px;
+  grid-template-areas:
+    ". lt-menu ."
+    "lt-white_lost_figures lt-chessboard lt-black_lost_figures";
 }
+
+.lt-white_lost_figures { grid-area: lt-white_lost_figures; }
+
+.lt-chessboard { grid-area: lt-chessboard; }
+
+.lt-black_lost_figures { grid-area: lt-black_lost_figures; }
+
+.lt-menu { grid-area: lt-menu; }
+
+@media all and (-ms-high-contrast:none) {
+  .lt-grid-container {
+    display: -ms-grid;
+    -ms-grid-columns: 0.4fr 2.2fr 0.4fr;
+    -ms-grid-rows: 0.1fr 1.9fr;
+  }
+
+  .lt-white_lost_figures {
+    -ms-grid-row: 2;
+    -ms-grid-row-span: 1;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 1;
+  }
+
+  .lt-chessboard {
+    -ms-grid-row: 2;
+    -ms-grid-row-span: 1;
+    -ms-grid-column: 2;
+    -ms-grid-column-span: 1;
+  }
+
+  .lt-black_lost_figures {
+    -ms-grid-row: 2;
+    -ms-grid-row-span: 1;
+    -ms-grid-column: 3;
+    -ms-grid-column-span: 1;
+  }
+
+  .lt-menu {
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 1;
+    -ms-grid-column: 2;
+    -ms-grid-column-span: 1;
+  }
+}
+
+
+
+
 
 table.chessboard {
     margin: 1px auto;
-    background:  #cccccc;
+    background:  #ffdf80;
     border: 5px solid #333;
 }
 td.chessboard {
@@ -17,9 +69,11 @@ td.chessboard.active-cell {
    border-color: #0066FF;
 }
 
-tr.chessboard:nth-child(odd) td.chessboard:nth-child(even),
+tr.chessboard:nth-child(odd) td.chessboard:nth-child(even){
+    background: #bf8040;
+}
 tr.chessboard:nth-child(even) td.chessboard:nth-child(odd) {
-    background: white;
+    background: #bf8040;
 }
 
 /* Style the draggable class*/
@@ -36,25 +90,11 @@ tr.chessboard:nth-child(even) td.chessboard:nth-child(odd) {
 
 /* Style the figure class*/
 .figure {
-   font-size: 30px;
-   width: 35px;
-   height: 35px;
+   font-size: 60px;
+   width: 70px;
+   height: 70px;
    text-align: center;
    vertical-align: middle;
-   line-height: 35px;
-   -webkit-user-select: none;
-   -moz-user-select: none;
-   -ms-user-select: none;
-   -khtml-user-select: none;
-   user-select: none;
-   cursor: pointer;
-}
-
-/* Style the draggable_lost_figures class*/
-.draggable_lost_figures {
-   width: 100%;
-   height: 630px;
-   position:relative;
    -webkit-user-select: none;
    -moz-user-select: none;
    -ms-user-select: none;

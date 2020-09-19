@@ -14,3 +14,5 @@ https://datahappy1.github.io/minimalistic_2player_chess/
 #### Useful links:
 - https://www.w3schools.com/html/html5_draganddrop.asp
 - https://en.wikipedia.org/wiki/Chess_symbols_in_Unicode
+- https://grid.layoutit.com/
+

@@ -1,53 +1,54 @@
 function allowDrop(ev) {
     ev.preventDefault();
+    ev.currentTarget.style.background = "yellow";
 }
 
 function drag(ev) {
+    //ev.currentTarget.style.background = "yellow";
+    
     ev.dataTransfer.setData("text", ev.target.id);
-    var draggedObject = ev.dataTransfer.getData("text");
-    var draggedObjectById = document.getElementById(draggedObject)
+    var draggedFigure = ev.dataTransfer.getData("text");
+    var draggedFigureElement = document.getElementById(draggedFigure)
+}
 
-    if (draggedObjectById.id.startsWith("black")) {
-        draggedObjectById.style.backgroundColor = "#ff3333";
-    } else {
-        draggedObjectById.style.backgroundColor = "#3366ff";
-    }
+function leave(ev) {
+    ev.currentTarget.style.background = "";
 }
 
 function drop(ev) {
     ev.preventDefault();
-    var droppedObject = ev.dataTransfer.getData("text");
-    var droppedObjectById = document.getElementById(droppedObject);
-    var targetObjectParent = ev.target.parentNode
-    var targetObjectParentById = targetObjectParent.id
-    var targetObjectParentElements = targetObjectParent.getElementsByTagName('*')
+    ev.currentTarget.style.background = "";
 
-    if (droppedObject.startsWith("black")) {
+    var droppedFigure = ev.dataTransfer.getData("text");
+    var droppedFigureElement = document.getElementById(droppedFigure);
+    
+    if (droppedFigure.startsWith("black")) {
         var droppedFigureColor = "black";
-    } else {
+        var lost_figures = document.getElementById("black_lost_figures");
+    } 
+    if (droppedFigure.startsWith("white")) {
         var droppedFigureColor = "white";
+        var lost_figures = document.getElementById("white_lost_figures");
     }
+    
+    var targetCell = ev.target
 
-    droppedObjectById.style.backgroundColor = "transparent";
-
-    // if the target is the lost figures section of the board check that color of the lost figure
-    // corresponds with the name of the lost figures section
-    if (targetObjectParentById.endsWith("lost_figures")) {
-        if (targetObjectParentById && targetObjectParentById.startsWith(droppedFigureColor)) {
-            ev.target.appendChild(droppedObjectById);
+    if (targetCell.className == "draggable"){
+        targetCell.appendChild(droppedFigureElement);
+    }
+    if (targetCell.className == "figure"){
+        var targetFigureElement = ev.target
+        if (targetFigureElement.id == droppedFigureElement.id){
+            return
         }
-    }
-    // if the target is in the game canvas board check that there is no more than 2 figures already
-    // and check that if there is already a figure, it's got the opposite color as the dragged figure
-    else {
-        if (targetObjectParentById && targetObjectParentElements.length < 3) {
-            if (targetObjectParentElements[1] != null) {
-                if (targetObjectParentElements[1].id.startsWith(droppedFigureColor) == false) {
-                    ev.target.appendChild(droppedObjectById);
-                }
-            } else {
-                ev.target.appendChild(droppedObjectById);
-            }
+        
+        if (targetFigureElement.id.startsWith(droppedFigureColor)){
+            alert("Invalid move");
+        }
+        else {
+            targetCell.parentNode.appendChild(droppedFigureElement);
+            targetCell.remove(targetFigureElement);
+            lost_figures.append(targetFigureElement);
         }
     }
 
