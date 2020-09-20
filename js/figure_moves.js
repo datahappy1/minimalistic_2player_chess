@@ -8,7 +8,12 @@ function checkFigureAlreadyMoved(figure, position){
 }
 
 function checkFigureMoveBlocked(figure, position){
-    //TODO
+    if (boardState[position] == null){
+        return false
+    } 
+    else {
+        return true
+    }
 }
 
 function getAllowedMovesForFigureOnPosition(figure, position){
@@ -26,6 +31,14 @@ function getAllowedMovesForFigureOnPosition(figure, position){
             allowedMoves.push(indexToColumnMap[column_index + 2].concat(position_row))
         }
         
+        for (i = 0; i < allowedMoves.length; i++) {
+            _blockedMove = checkFigureMoveBlocked(figure, allowedMoves[i]);
+            if (_blockedMove == true){
+                allowedMoves.splice(i, 1);
+            }
+            
+        }
+        
         return allowedMoves
     }
     
@@ -36,6 +49,13 @@ function getAllowedMovesForFigureOnPosition(figure, position){
         
         if (_alreadyMoved == false){
             allowedMoves.push(indexToColumnMap[column_index - 2].concat(position_row))
+        }
+        
+        for (i = 0; i < allowedMoves.length; i++) {
+            _blockedMove = checkFigureMoveBlocked(figure, allowedMoves[i]);
+            if (_blockedMove == true){
+                allowedMoves.splice(i, 1);
+            }
         }
         
         return allowedMoves
