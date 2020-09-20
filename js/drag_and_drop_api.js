@@ -22,13 +22,15 @@ function drag(ev) {
         alert("Invalid move - It's Opponent move time");
         return
     }
-    
+
     var currentCell = ev.target.parentElement.parentElement.id
     var allowedTargetCells = getAllowedMovesForFigureOnPosition(draggedFigureElement.id, currentCell)
-    console.log(allowedTargetCells)
-    xdoc = document.getElementById(allowedTargetCells)
-    xdoc.style.background = "lightblue";
-    
+    //console.log(allowedTargetCells)
+    //xdoc = document.getElementById(allowedTargetCells)
+    //xdoc.style.background = "lightblue";
+
+    boardState[currentCell] = null
+
 }
 
 function leave(ev) {
@@ -52,26 +54,31 @@ function drop(ev) {
     }
     
     var targetCell = ev.target
-    
+
     if (targetCell.className == "draggable"){
+        var targetCellBoardPosition = targetCell.parentNode
         targetCell.appendChild(droppedFigureElement);
         lastMoveSide = droppedFigureColor;
+        boardState[targetCellBoardPosition.id] = droppedFigureElement.id
+        console.log(boardState)
     }
     
     if (targetCell.className == "figure"){
+        var targetCellBoardPosition = targetCell.parentNode.parentNode
         var targetFigureElement = ev.target
         if (targetFigureElement.id == droppedFigureElement.id){
             return
         }
         
         if (targetFigureElement.id.startsWith(droppedFigureColor)){
-            alert("Invalid move - No Cannibalism");
+            alert("Invalid move - No Cannibalism in here");
+            return
         }
-        else {
-            targetCell.parentNode.appendChild(droppedFigureElement);
-            targetCell.remove(targetFigureElement);
-            lostFigures.append(targetFigureElement);
-            lastMoveSide = droppedFigureColor;
-        }
+
+        targetCell.parentNode.appendChild(droppedFigureElement);
+        targetCell.remove(targetFigureElement);
+        lostFigures.append(targetFigureElement);
+        lastMoveSide = droppedFigureColor;
+        boardState[targetCellBoardPosition.id] = droppedFigureElement.id
     }
 }
