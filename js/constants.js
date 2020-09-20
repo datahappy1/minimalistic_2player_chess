@@ -47,22 +47,22 @@ const initialBoardState = {
     "f6": null,
     "g6": "black_pawn6",
     "h6": "black_bishop2",
-    "a7": "white_pawn7",
-    "b7": "white_knight2",
+    "a7": "white_knight2",
+    "b7": "white_pawn7",
     "c7": null,
     "d7": null,
     "e7": null,
     "f7": null,
-    "g7": "black_knight2",
-    "h7": "black_pawn7",
-    "a8": "white_pawn8",
-    "b8": "white_rook2",
+    "g7": "black_pawn7",
+    "h7": "black_knight2",
+    "a8": "white_rook2",
+    "b8": "white_pawn8",
     "c8": null,
     "d8": null,
     "e8": null,
     "f8": null,
-    "g8": "black_rook2",
-    "h8": "black_pawn8"
+    "g8": "black_pawn8",
+    "h8": "black_rook2"
 }
 
 const columnToIndexMap = {
