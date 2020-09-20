@@ -1,6 +1,47 @@
-function getAllowedMovesForFigureOnPosition(figure, position){
+function checkFigureAlreadyMoved(figure, position){
+    if (initialBoardState[position] == figure){
+        return false
+    } 
+    else {
+        return true
+    }
+}
 
-    if (figure=="white_pawn1"){
-        return "b3"
+function checkFigureMoveBlocked(figure, position){
+    //TODO
+}
+
+function getAllowedMovesForFigureOnPosition(figure, position){
+    position_column = position.charAt(0);
+    position_row = parseInt(position.charAt(1));
+
+    column_index = columnToIndexMap[position_column]
+    
+    if (figure.startsWith("white_pawn")){
+        _alreadyMoved = checkFigureAlreadyMoved(figure, position)
+        
+        allowedMoves = [indexToColumnMap[column_index + 1].concat(position_row)]
+        
+        if (_alreadyMoved == false){
+            allowedMoves.push(indexToColumnMap[column_index + 2].concat(position_row))
+        }
+        
+        return allowedMoves
+    }
+    
+    if (figure.startsWith("black_pawn")){
+        _alreadyMoved = checkFigureAlreadyMoved(figure, position)
+        
+        allowedMoves = [indexToColumnMap[column_index - 1].concat(position_row)]
+        
+        if (_alreadyMoved == false){
+            allowedMoves.push(indexToColumnMap[column_index - 2].concat(position_row))
+        }
+        
+        return allowedMoves
+    }
+    
+    else {
+        return []
     }
 }

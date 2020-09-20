@@ -1,4 +1,5 @@
 var lastMoveSide = null;
+var allowedTargetCells = [];
 
 
 function allowDrop(ev) {
@@ -11,6 +12,8 @@ function drag(ev) {
     var draggedFigure = ev.dataTransfer.getData("text");
     var draggedFigureElement = document.getElementById(draggedFigure)
     
+    var currentCellBoardPosition = draggedFigureElement.parentElement.parentElement
+    
     if (draggedFigure.startsWith("black")) {
         var draggedFigureColor = "black";
     } 
@@ -22,14 +25,21 @@ function drag(ev) {
         alert("Invalid move - It's Opponent move time");
         return
     }
+    
+    allowedTargetCells = getAllowedMovesForFigureOnPosition(draggedFigureElement.id, currentCellBoardPosition.id)
+    console.log(allowedTargetCells)
+    
+    if (allowedTargetCells.length == 0){
+        alert("No moves left for " + draggedFigureElement.id)
+        return
+    }
+    
+    for (i = 0; i < allowedTargetCells.length; i++) {
+        _doc = document.getElementById(allowedTargetCells[i]);
+        _doc.style.background = "lightblue";
+    }
 
-    var currentCell = ev.target.parentElement.parentElement.id
-    var allowedTargetCells = getAllowedMovesForFigureOnPosition(draggedFigureElement.id, currentCell)
-    //console.log(allowedTargetCells)
-    //xdoc = document.getElementById(allowedTargetCells)
-    //xdoc.style.background = "lightblue";
-
-    boardState[currentCell] = null
+    boardState[currentCellBoardPosition.id] = null
 
 }
 
@@ -40,6 +50,13 @@ function leave(ev) {
 function drop(ev) {
     ev.preventDefault();
     ev.currentTarget.style.background = "";
+
+    if (allowedTargetCells.length > 0){
+        for (i = 0; i < allowedTargetCells.length; i++) {
+            _doc = document.getElementById(allowedTargetCells[i]);
+            _doc.style.background = "";
+        }
+    }
     
     var droppedFigure = ev.dataTransfer.getData("text");
     var droppedFigureElement = document.getElementById(droppedFigure);
@@ -57,14 +74,23 @@ function drop(ev) {
 
     if (targetCell.className == "draggable"){
         var targetCellBoardPosition = targetCell.parentNode
+        
+        if (allowedTargetCells.includes(targetCellBoardPosition.id) == false){
+            return
+        }
+        
         targetCell.appendChild(droppedFigureElement);
         lastMoveSide = droppedFigureColor;
         boardState[targetCellBoardPosition.id] = droppedFigureElement.id
-        console.log(boardState)
     }
     
     if (targetCell.className == "figure"){
         var targetCellBoardPosition = targetCell.parentNode.parentNode
+        
+        if (allowedTargetCells.includes(targetCellBoardPosition.id) == false){
+            return
+        }
+        
         var targetFigureElement = ev.target
         if (targetFigureElement.id == droppedFigureElement.id){
             return
