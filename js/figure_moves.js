@@ -1,67 +1,144 @@
 function checkFigureAlreadyMoved(figure, position){
-    if (initialBoardState[position] == figure){
-        return false
+    if (initialBoardState[position] !== figure){
+        return true
     } 
     else {
-        return true
+        return false
     }
 }
 
 function checkFigureMoveBlocked(figure, position){
-    if (boardState[position] == null){
-        return false
+    if (boardState[position] !== null){
+        return true
     } 
     else {
-        return true
+        return false
+    }
+}
+
+function checkPositionColumnInIndexMap(position_column){
+    console.log(indexMap[position_column])
+    if (typeof indexMap[position_column] !== "undefined"){
+        return position_column
+    }
+    else {
+        throw new Error("undefined grid position");
     }
 }
 
 function getAllowedMovesForFigureOnPosition(figure, position){
-    position_column = position.charAt(0);
-    position_row = parseInt(position.charAt(1));
-
-    column_index = columnToIndexMap[position_column]
+    var position_row = position.charAt(0);//b
+    var position_column = parseInt(position.charAt(1));//2
+    var column_index = columnToIndexMap[position_row]
+    var figureAlreadyMoved = checkFigureAlreadyMoved(figure, position);
     
     if (figure.startsWith("white_pawn")){
-        _alreadyMoved = checkFigureAlreadyMoved(figure, position)
+        var _allowedMovesBase = []
+        var _captureMovesBase = []
+                
+        var allowedMoves = [];
+        var captureMoves = [];
         
-        allowedMoves = [indexToColumnMap[column_index + 1].concat(position_row)]
+        try {_allowedMovesBase.push(indexToColumnMap[column_index].concat(position_column + 1))}
+        catch(err){}
         
-        if (_alreadyMoved == false){
-            allowedMoves.push(indexToColumnMap[column_index + 2].concat(position_row))
-        }
+        try {_captureMovesBase.push(indexToColumnMap[column_index + 1].concat(checkPositionColumnInIndexMap(position_column + 1)))}
+        catch(err){}
         
-        for (i = 0; i < allowedMoves.length; i++) {
-            _blockedMove = checkFigureMoveBlocked(figure, allowedMoves[i]);
-            if (_blockedMove == true){
-                allowedMoves.splice(i, 1);
+        try {_captureMovesBase.push(indexToColumnMap[column_index - 1].concat(checkPositionColumnInIndexMap(position_column + 1)))}
+        catch(err){}
+        
+        if (figureAlreadyMoved === false){
+            try {_allowedMovesBase.push(indexToColumnMap[column_index].concat(checkPositionColumnInIndexMap(position_column + 2)))}
+            catch(err){}
+            }
+        
+        for (i = 0; i < _allowedMovesBase.length; i++) {
+            if (checkFigureMoveBlocked(figure, _allowedMovesBase[i]) === false){
+                allowedMoves.push(_allowedMovesBase[i])
+            }
+        }        
+                
+        for (i = 0; i < _captureMovesBase.length; i++) {
+            if (checkFigureMoveBlocked(figure, _captureMovesBase[i]) === true){
+                captureMoves.push(_captureMovesBase[i])
             }
             
         }
-        
-        return allowedMoves
+        return allowedMoves.concat(captureMoves)
     }
     
     if (figure.startsWith("black_pawn")){
-        _alreadyMoved = checkFigureAlreadyMoved(figure, position)
+        var _allowedMovesBase = []
+        var _captureMovesBase = []
+                
+        var allowedMoves = [];
+        var captureMoves = [];
         
-        allowedMoves = [indexToColumnMap[column_index - 1].concat(position_row)]
+        try {_allowedMovesBase.push(indexToColumnMap[column_index].concat(checkPositionColumnInIndexMap(position_column - 1)))}
+        catch(err){}
         
-        if (_alreadyMoved == false){
-            allowedMoves.push(indexToColumnMap[column_index - 2].concat(position_row))
-        }
+        try {_captureMovesBase.push(indexToColumnMap[column_index + 1].concat(checkPositionColumnInIndexMap(position_column - 1)))}
+        catch(err){}
         
-        for (i = 0; i < allowedMoves.length; i++) {
-            _blockedMove = checkFigureMoveBlocked(figure, allowedMoves[i]);
-            if (_blockedMove == true){
-                allowedMoves.splice(i, 1);
+        try {_captureMovesBase.push(indexToColumnMap[column_index - 1].concat(checkPositionColumnInIndexMap(position_column - 1)))}
+        catch(err){}
+        
+        if (figureAlreadyMoved === false){
+            try {_allowedMovesBase.push(indexToColumnMap[column_index].concat(checkPositionColumnInIndexMap(position_column - 2)))}
+            catch(err){}
             }
-        }
         
-        return allowedMoves
+        for (i = 0; i < _allowedMovesBase.length; i++) {
+            if (checkFigureMoveBlocked(figure, _allowedMovesBase[i]) === false){
+                allowedMoves.push(_allowedMovesBase[i])
+            }
+        }        
+                
+        for (i = 0; i < _captureMovesBase.length; i++) {
+            if (checkFigureMoveBlocked(figure, _captureMovesBase[i]) === true){
+                captureMoves.push(_captureMovesBase[i])
+            }
+            
+        }
+
+        return allowedMoves.concat(captureMoves)
     }
     
+    if (figure.includes("_knight")){
+        var _allowedMovesBase = []
+
+        var allowedMoves = [];
+
+        try {_allowedMovesBase.push(indexToColumnMap[column_index + 1].concat(checkPositionColumnInIndexMap(position_column + 2)))}
+        catch(err){}
+        
+        try {_allowedMovesBase.push(indexToColumnMap[column_index + 1].concat(checkPositionColumnInIndexMap(position_column - 2)))}
+        catch(err){}
+        
+        try {_allowedMovesBase.push(indexToColumnMap[column_index + 2].concat(checkPositionColumnInIndexMap(position_column + 1)))}
+        catch(err){}
+        
+        try {_allowedMovesBase.push(indexToColumnMap[column_index + 2].concat(checkPositionColumnInIndexMap(position_column - 1)))}
+        catch(err){}
+        
+        try {_allowedMovesBase.push(indexToColumnMap[column_index - 1].concat(checkPositionColumnInIndexMap(position_column + 2)))}
+        catch(err){}
+        
+        try {_allowedMovesBase.push(indexToColumnMap[column_index - 1].concat(checkPositionColumnInIndexMap(position_column - 2)))}
+        catch(err){}
+        
+        try {_allowedMovesBase.push(indexToColumnMap[column_index - 2].concat(checkPositionColumnInIndexMap(position_column + 1)))}
+        catch(err){}
+        
+        try {_allowedMovesBase.push(indexToColumnMap[column_index - 2].concat(checkPositionColumnInIndexMap(position_column - 1)))}
+        catch(err){}     
+        
+        return _allowedMovesBase
+    }
+
     else {
         return []
     }
+    
 }

@@ -20,7 +20,7 @@ function drag(ev) {
     if (draggedFigure.startsWith("white")) {
         var draggedFigureColor = "white";
     }
-    
+
     if (lastMoveSide == draggedFigureColor || (lastMoveSide == null && draggedFigureColor == "black")){
         alert("Invalid move - It's Opponent move time");
         return
@@ -28,7 +28,7 @@ function drag(ev) {
     
     allowedTargetCells = getAllowedMovesForFigureOnPosition(draggedFigureElement.id, currentCellBoardPosition.id)
     console.log(allowedTargetCells)
-    
+
     if (allowedTargetCells.length == 0){
         alert("No moves left for " + draggedFigureElement.id)
         return
