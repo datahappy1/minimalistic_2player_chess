@@ -196,6 +196,178 @@ function getAllowedMovesForFigureOnPosition(figure, position){
         return _allowedMovesBase
     }
 
+    if (figure.includes("_bishop")){
+        var _allowedMovesBase = []
+
+        var allowedMoves = [];
+
+        for (i = 1; i <= rows.length; i++) {
+            try {_pos = indexToColumnMap[column_index + rows[i]].concat(checkPositionColumnInIndexMap(position_column + rows[i]))
+                if (checkFigureMoveBlocked(figure, _pos) === false){
+                    _allowedMovesBase.push(_pos)
+                }
+                else {
+                    _allowedMovesBase.push(_pos)
+                    break
+                }
+            }
+            catch(err){};
+        }
+
+        for (i = 1; i <= rows.length; i++) {
+            try {_pos = indexToColumnMap[column_index - rows[i]].concat(checkPositionColumnInIndexMap(position_column - rows[i]))
+                if (checkFigureMoveBlocked(figure, _pos) === false){
+                    _allowedMovesBase.push(_pos)
+                }
+                else {
+                    _allowedMovesBase.push(_pos)
+                    break
+                }
+            }
+            catch(err){};
+        }
+
+        for (i = 1; i <= rows.length; i++) {
+            try {_pos = indexToColumnMap[column_index + rows[i]].concat(checkPositionColumnInIndexMap(position_column - rows[i]))
+                if (checkFigureMoveBlocked(figure, _pos) === false){
+                    _allowedMovesBase.push(_pos)
+                }
+                else {
+                    _allowedMovesBase.push(_pos)
+                    break
+                }
+            }
+            catch(err){};
+        }
+
+        for (i = 1; i <= rows.length; i++) {
+            try {_pos = indexToColumnMap[column_index - rows[i]].concat(checkPositionColumnInIndexMap(position_column + rows[i]))
+                if (checkFigureMoveBlocked(figure, _pos) === false){
+                    _allowedMovesBase.push(_pos)
+                }
+                else {
+                    _allowedMovesBase.push(_pos)
+                    break
+                }
+            }
+            catch(err){};
+        }
+
+        return _allowedMovesBase
+    }
+
+    if (figure.includes("_queen")){
+        var _allowedMovesBase = []
+
+        var allowedMoves = [];
+
+        for (i = 1; i <= rows.length; i++) {
+            try {_pos = indexToColumnMap[column_index].concat(checkPositionColumnInIndexMap(position_column + rows[i]))
+                if (checkFigureMoveBlocked(figure, _pos) === false){
+                    _allowedMovesBase.push(_pos)
+                }
+                else {
+                    _allowedMovesBase.push(_pos)
+                    break
+                }
+            }
+            catch(err){};
+        }
+
+        for (i = 1; i <= rows.length; i++) {
+            try {_pos = indexToColumnMap[column_index].concat(checkPositionColumnInIndexMap(position_column - rows[i]))
+                if (checkFigureMoveBlocked(figure, _pos) === false){
+                    _allowedMovesBase.push(_pos)
+                }
+                else {
+                    _allowedMovesBase.push(_pos)
+                    break
+                }
+            }
+            catch(err){};
+        }
+
+        for (i = 1; i <= rows.length; i++) {
+            try {_pos = indexToColumnMap[column_index + rows[i]].concat(checkPositionColumnInIndexMap(position_column))
+                if (checkFigureMoveBlocked(figure, _pos) === false){
+                    _allowedMovesBase.push(_pos)
+                }
+                else {
+                    _allowedMovesBase.push(_pos)
+                    break
+                }
+            }
+            catch(err){};
+        }
+
+        for (i = 1; i <= rows.length; i++) {
+            try {_pos = indexToColumnMap[column_index - rows[i]].concat(checkPositionColumnInIndexMap(position_column))
+                if (checkFigureMoveBlocked(figure, _pos) === false){
+                    _allowedMovesBase.push(_pos)
+                }
+                else {
+                    _allowedMovesBase.push(_pos)
+                    break
+                }
+            }
+            catch(err){};
+        }
+
+        for (i = 1; i <= rows.length; i++) {
+            try {_pos = indexToColumnMap[column_index + rows[i]].concat(checkPositionColumnInIndexMap(position_column + rows[i]))
+                if (checkFigureMoveBlocked(figure, _pos) === false){
+                    _allowedMovesBase.push(_pos)
+                }
+                else {
+                    _allowedMovesBase.push(_pos)
+                    break
+                }
+            }
+            catch(err){};
+        }
+
+        for (i = 1; i <= rows.length; i++) {
+            try {_pos = indexToColumnMap[column_index - rows[i]].concat(checkPositionColumnInIndexMap(position_column - rows[i]))
+                if (checkFigureMoveBlocked(figure, _pos) === false){
+                    _allowedMovesBase.push(_pos)
+                }
+                else {
+                    _allowedMovesBase.push(_pos)
+                    break
+                }
+            }
+            catch(err){};
+        }
+
+        for (i = 1; i <= rows.length; i++) {
+            try {_pos = indexToColumnMap[column_index + rows[i]].concat(checkPositionColumnInIndexMap(position_column - rows[i]))
+                if (checkFigureMoveBlocked(figure, _pos) === false){
+                    _allowedMovesBase.push(_pos)
+                }
+                else {
+                    _allowedMovesBase.push(_pos)
+                    break
+                }
+            }
+            catch(err){};
+        }
+
+        for (i = 1; i <= rows.length; i++) {
+            try {_pos = indexToColumnMap[column_index - rows[i]].concat(checkPositionColumnInIndexMap(position_column + rows[i]))
+                if (checkFigureMoveBlocked(figure, _pos) === false){
+                    _allowedMovesBase.push(_pos)
+                }
+                else {
+                    _allowedMovesBase.push(_pos)
+                    break
+                }
+            }
+            catch(err){};
+        }
+
+        return _allowedMovesBase
+    }
+
     else {
         return []
     }
