@@ -17,7 +17,6 @@ function checkFigureMoveBlocked(figure, position){
 }
 
 function checkPositionColumnInIndexMap(position_column){
-    console.log(indexMap[position_column])
     if (typeof indexMap[position_column] !== "undefined"){
         return position_column
     }
@@ -134,6 +133,65 @@ function getAllowedMovesForFigureOnPosition(figure, position){
         try {_allowedMovesBase.push(indexToColumnMap[column_index - 2].concat(checkPositionColumnInIndexMap(position_column - 1)))}
         catch(err){}     
         
+        return _allowedMovesBase
+    }
+
+    if (figure.includes("_rook")){
+        var _allowedMovesBase = []
+
+        var allowedMoves = [];
+
+        for (i = 1; i <= rows.length; i++) {
+            try {_pos = indexToColumnMap[column_index].concat(checkPositionColumnInIndexMap(position_column + rows[i]))
+                if (checkFigureMoveBlocked(figure, _pos) === false){
+                    _allowedMovesBase.push(_pos)
+                }
+                else {
+                    break
+                }
+            }
+            catch(err){};
+        }
+
+        for (i = 1; i <= rows.length; i++) {
+            try {_pos = indexToColumnMap[column_index].concat(checkPositionColumnInIndexMap(position_column - rows[i]))
+                if (checkFigureMoveBlocked(figure, _pos) === false){
+                    _allowedMovesBase.push(_pos)
+                }
+                else {
+                    _allowedMovesBase.push(_pos)
+                    break
+                }
+            }
+            catch(err){};
+        }
+
+        for (i = 1; i <= rows.length; i++) {
+            try {_pos = indexToColumnMap[column_index + rows[i]].concat(checkPositionColumnInIndexMap(position_column))
+                if (checkFigureMoveBlocked(figure, _pos) === false){
+                    _allowedMovesBase.push(_pos)
+                }
+                else {
+                    _allowedMovesBase.push(_pos)
+                    break
+                }
+            }
+            catch(err){};
+        }
+
+        for (i = 1; i <= rows.length; i++) {
+            try {_pos = indexToColumnMap[column_index - rows[i]].concat(checkPositionColumnInIndexMap(position_column))
+                if (checkFigureMoveBlocked(figure, _pos) === false){
+                    _allowedMovesBase.push(_pos)
+                }
+                else {
+                    _allowedMovesBase.push(_pos)
+                    break
+                }
+            }
+            catch(err){};
+        }
+
         return _allowedMovesBase
     }
 
