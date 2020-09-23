@@ -147,6 +147,7 @@ function getAllowedMovesForFigureOnPosition(figure, position){
                     _allowedMovesBase.push(_pos)
                 }
                 else {
+                    _allowedMovesBase.push(_pos)
                     break
                 }
             }
