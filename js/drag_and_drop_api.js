@@ -1,7 +1,6 @@
 var lastMoveSide = null;
 var allowedTargetCells = [];
 
-
 function allowDrop(ev) {
     ev.preventDefault();
     ev.currentTarget.style.background = "yellow";
@@ -13,13 +12,7 @@ function drag(ev) {
     var draggedFigureElement = document.getElementById(draggedFigure)
     
     var currentCellBoardPosition = draggedFigureElement.parentElement.parentElement
-    
-    if (draggedFigure.startsWith("black")) {
-        var draggedFigureColor = "black";
-    } 
-    if (draggedFigure.startsWith("white")) {
-        var draggedFigureColor = "white";
-    }
+    var draggedFigureColor = getFigureColor(draggedFigure)
 
     if (lastMoveSide == draggedFigureColor || (lastMoveSide == null && draggedFigureColor == "black")){
         alert("Invalid move - It's Opponent move time");
@@ -60,13 +53,12 @@ function drop(ev) {
     
     var droppedFigure = ev.dataTransfer.getData("text");
     var droppedFigureElement = document.getElementById(droppedFigure);
-    
+    var droppedFigureColor = getFigureColor(droppedFigure)
+        
     if (droppedFigure.startsWith("black")) {
-        var droppedFigureColor = "black";
         var lostFigures = document.getElementById("black_lost_figures");
     } 
     if (droppedFigure.startsWith("white")) {
-        var droppedFigureColor = "white";
         var lostFigures = document.getElementById("white_lost_figures");
     }
     
@@ -96,11 +88,6 @@ function drop(ev) {
             return
         }
         
-        if (targetFigureElement.id.startsWith(droppedFigureColor)){
-            alert("Invalid move - No Cannibalism in here");
-            return
-        }
-
         targetCell.parentNode.appendChild(droppedFigureElement);
         targetCell.remove(targetFigureElement);
         lostFigures.append(targetFigureElement);
