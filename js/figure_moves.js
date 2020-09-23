@@ -368,6 +368,54 @@ function getAllowedMovesForFigureOnPosition(figure, position){
         return _allowedMovesBase
     }
 
+    if (figure.includes("_king")){
+        var _allowedMovesBase = []
+
+        var allowedMoves = [];
+        
+        try {_pos = indexToColumnMap[column_index].concat(checkPositionColumnInIndexMap(position_column + 1))
+            _allowedMovesBase.push(_pos)
+        }
+        catch(err){};
+        
+        try {_pos = indexToColumnMap[column_index].concat(checkPositionColumnInIndexMap(position_column - 1))
+            _allowedMovesBase.push(_pos)
+        }
+        catch(err){};
+
+        try {_pos = indexToColumnMap[column_index + 1].concat(checkPositionColumnInIndexMap(position_column))
+            _allowedMovesBase.push(_pos)
+        }
+        catch(err){};
+
+        try {_pos = indexToColumnMap[column_index - 1].concat(checkPositionColumnInIndexMap(position_column))
+            _allowedMovesBase.push(_pos)
+        }
+        catch(err){};
+
+        try {_pos = indexToColumnMap[column_index + 1].concat(checkPositionColumnInIndexMap(position_column + 1))
+            _allowedMovesBase.push(_pos)
+        }
+        catch(err){};
+
+        try {_pos = indexToColumnMap[column_index - 1].concat(checkPositionColumnInIndexMap(position_column - 1))
+            _allowedMovesBase.push(_pos)
+        }
+        catch(err){};
+
+        try {_pos = indexToColumnMap[column_index + 1].concat(checkPositionColumnInIndexMap(position_column - 1))
+            _allowedMovesBase.push(_pos)
+        }
+        catch(err){};
+
+        try {_pos = indexToColumnMap[column_index - 1].concat(checkPositionColumnInIndexMap(position_column + 1))
+            _allowedMovesBase.push(_pos)
+        }
+        catch(err){};
+
+        return _allowedMovesBase
+    }
+
     else {
         return []
     }
