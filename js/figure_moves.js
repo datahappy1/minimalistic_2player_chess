@@ -17,8 +17,7 @@ function checkFigureAlreadyMoved(figure, position){
 }
 
 function checkFigureMoveBlockedByFigureColor(figure, position){
-    var _boardPosition = boardState[position];
-    var result;
+    let _boardPosition = boardState[position];
     
     if (_boardPosition == null){
         return "none";
@@ -41,18 +40,18 @@ function checkPositionColumnInIndexMap(position_column){
 }
 
 function getAllowedMovesForFigureOnPosition(figure, position){
-    var position_row = position.charAt(0);//b
-    var position_column = parseInt(position.charAt(1));//2
-    var column_index = columnToIndexMap[position_row]
-    var figureAlreadyMoved = checkFigureAlreadyMoved(figure, position);
-    var figureColor = getFigureColor(figure);
+    let position_row = position.charAt(0);//b
+    let position_column = parseInt(position.charAt(1));//2
+    let column_index = columnToIndexMap[position_row]
+    let figureAlreadyMoved = checkFigureAlreadyMoved(figure, position);
+    let figureColor = getFigureColor(figure);
     
     if (figure.startsWith("white_pawn")){
-        var _allowedMovesBase = []
-        var _captureMovesBase = []
-                
-        var allowedMoves = [];
-        var captureMoves = [];
+        let _allowedMovesBase = []
+        let _captureMovesBase = []
+
+        let allowedMoves = [];
+        let captureMoves = [];
         
         try {_allowedMovesBase.push(indexToColumnMap[column_index].concat(position_column + 1))}
         catch(err){}
@@ -84,11 +83,11 @@ function getAllowedMovesForFigureOnPosition(figure, position){
     }
     
     if (figure.startsWith("black_pawn")){
-        var _allowedMovesBase = []
-        var _captureMovesBase = []
+        let _allowedMovesBase = []
+        let _captureMovesBase = []
                 
-        var allowedMoves = [];
-        var captureMoves = [];
+        let allowedMoves = [];
+        let captureMoves = [];
         
         try {_allowedMovesBase.push(indexToColumnMap[column_index].concat(checkPositionColumnInIndexMap(position_column - 1)))}
         catch(err){}
@@ -121,9 +120,9 @@ function getAllowedMovesForFigureOnPosition(figure, position){
     }
     
     if (figure.includes("_knight")){
-        var _allowedMovesBase = []
+        let _allowedMovesBase = []
 
-        var allowedMoves = [];
+        let allowedMoves = [];
         
         try {_allowedMovesBase.push(indexToColumnMap[column_index + 1].concat(checkPositionColumnInIndexMap(position_column + 2)))}
         catch(err){}
@@ -159,9 +158,9 @@ function getAllowedMovesForFigureOnPosition(figure, position){
     }
 
     if (figure.includes("_rook")){
-        var _allowedMovesBase = []
+        let _allowedMovesBase = []
 
-        var allowedMoves = [];
+        let allowedMoves = [];
         
         for (i = 1; i <= rows.length; i++) {
             try {_pos = indexToColumnMap[column_index].concat(checkPositionColumnInIndexMap(position_column + rows[i]))
@@ -225,9 +224,9 @@ function getAllowedMovesForFigureOnPosition(figure, position){
     }
 
     if (figure.includes("_bishop")){
-        var _allowedMovesBase = []
+        let _allowedMovesBase = []
 
-        var allowedMoves = [];
+        let allowedMoves = [];
 
         for (i = 1; i <= rows.length; i++) {
             try {_pos = indexToColumnMap[column_index + rows[i]].concat(checkPositionColumnInIndexMap(position_column + rows[i]))
@@ -291,9 +290,9 @@ function getAllowedMovesForFigureOnPosition(figure, position){
     }
 
     if (figure.includes("_queen")){
-        var _allowedMovesBase = []
+        let _allowedMovesBase = []
 
-        var allowedMoves = [];
+        let allowedMoves = [];
 
         for (i = 1; i <= rows.length; i++) {
             try {_pos = indexToColumnMap[column_index].concat(checkPositionColumnInIndexMap(position_column + rows[i]))
@@ -408,63 +407,47 @@ function getAllowedMovesForFigureOnPosition(figure, position){
     }
 
     if (figure.includes("_king")){
-        var _allowedMovesBase = []
+        let _allowedMovesBase = []
         
-        var allowedMoves = [];
+        let allowedMoves = [];
         
         try {_pos = indexToColumnMap[column_index].concat(checkPositionColumnInIndexMap(position_column + 1))
-             if (checkFigureMoveBlockedByFigureColor(figure, _pos) === "none"){
-                _allowedMovesBase.push(_pos)
-             }
+            _allowedMovesBase.push(_pos)
         }
         catch(err){};
         
         try {_pos = indexToColumnMap[column_index].concat(checkPositionColumnInIndexMap(position_column - 1))
-            if (checkFigureMoveBlockedByFigureColor(figure, _pos) === "none"){
-                _allowedMovesBase.push(_pos)
-            }
+            _allowedMovesBase.push(_pos)
         }
         catch(err){};
 
         try {_pos = indexToColumnMap[column_index + 1].concat(checkPositionColumnInIndexMap(position_column))
-             if (checkFigureMoveBlockedByFigureColor(figure, _pos) === "none"){
-                _allowedMovesBase.push(_pos)
-             }
+            _allowedMovesBase.push(_pos)
         }
         catch(err){};
 
         try {_pos = indexToColumnMap[column_index - 1].concat(checkPositionColumnInIndexMap(position_column))
-             if (checkFigureMoveBlockedByFigureColor(figure, _pos) === "none"){
-                _allowedMovesBase.push(_pos)
-             }
+            _allowedMovesBase.push(_pos)
         }
         catch(err){};
 
         try {_pos = indexToColumnMap[column_index + 1].concat(checkPositionColumnInIndexMap(position_column + 1))
-             if (checkFigureMoveBlockedByFigureColor(figure, _pos) === "none"){
-                 _allowedMovesBase.push(_pos)
-             }
-        }
+             _allowedMovesBase.push(_pos)
+        }   
         catch(err){};
 
         try {_pos = indexToColumnMap[column_index - 1].concat(checkPositionColumnInIndexMap(position_column - 1))
-             if (checkFigureMoveBlockedByFigureColor(figure, _pos) === "none"){
-                _allowedMovesBase.push(_pos)
-             }
+            _allowedMovesBase.push(_pos)
         }
         catch(err){};
 
         try {_pos = indexToColumnMap[column_index + 1].concat(checkPositionColumnInIndexMap(position_column - 1))
-             if (checkFigureMoveBlockedByFigureColor(figure, _pos) === "none"){
-                 _allowedMovesBase.push(_pos)
-             }
+             _allowedMovesBase.push(_pos)
         }
         catch(err){};
 
         try {_pos = indexToColumnMap[column_index - 1].concat(checkPositionColumnInIndexMap(position_column + 1))
-             if (checkFigureMoveBlockedByFigureColor(figure, _pos) === "none"){
-                 _allowedMovesBase.push(_pos)
-             }
+             _allowedMovesBase.push(_pos)
         }
         catch(err){};
         

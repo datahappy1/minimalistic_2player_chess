@@ -57,7 +57,7 @@
 /*Board layout start*/
 table.chessboard {
     margin: 1px auto;
-    background:  #ffdf80;
+    background:  #bf8040;
     border: 5px solid #333;
 }
 td.chessboard {
@@ -69,10 +69,10 @@ td.chessboard.active-cell {
 }
 
 tr.chessboard:nth-child(odd) td.chessboard:nth-child(even){
-    background: #bf8040;
+    background: #ffdf80;
 }
 tr.chessboard:nth-child(even) td.chessboard:nth-child(odd) {
-    background: #bf8040;
+    background: #ffdf80;
 }
 
 .draggable {
