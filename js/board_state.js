@@ -64,3 +64,25 @@ var boardState = {
     "h7": "black_pawn8",
     "h8": "black_rook2"
 }
+
+function checkIfPawnPromotion(droppedFigure, targetCellBoardPosition){
+    if (droppedFigure.includes("_pawn") == true && (targetCellBoardPosition.endsWith("8") || targetCellBoardPosition.endsWith("1"))){
+        return true
+    }
+    else {
+        return false
+    }
+}
+
+function checkIfCastlingPossible(){
+
+}
+
+function checkIfCheck(){
+
+}
+
+function checkIfCheckMate(){
+
+}
+

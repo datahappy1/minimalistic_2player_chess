@@ -23,7 +23,7 @@ function drag(ev) {
     console.log(allowedTargetCells)
 
     if (allowedTargetCells.length == 0){
-        alert("No moves left for " + draggedFigureElement.id)
+        alert("No allowed moves for " + draggedFigureElement.id)
         return
     }
     
@@ -87,11 +87,40 @@ function drop(ev) {
         if (targetFigureElement.id == droppedFigureElement.id){
             return
         }
-        
+
         targetCell.parentNode.appendChild(droppedFigureElement);
         targetCell.remove(targetFigureElement);
         lostFigures.append(targetFigureElement);
         lastMoveSide = droppedFigureColor;
         boardState[targetCellBoardPosition.id] = droppedFigureElement.id
     }
+
+    if (checkIfPawnPromotion(droppedFigure, targetCellBoardPosition.id) == true){
+            alert("Pawn promotion")
+
+            targetCell.removeChild(droppedFigureElement);
+            lostFigures.append(droppedFigureElement);
+            lastMoveSide = droppedFigureColor;
+
+            //TODO construct all 4: queen,rook,bishop,knight in lost items
+            PromotedFigureName = droppedFigureColor + "_queen_promoted" ;
+            if (droppedFigureColor === "white"){
+                PromotedFigureValue = "\u2655";
+            }
+            else {
+                PromotedFigureValue = "\u265B";
+            }
+            PromotedFigureElement = document.createElement("div");
+            PromotedFigureElement.setAttribute("class", "figure");
+            PromotedFigureElement.setAttribute("id", PromotedFigureName);
+            PromotedFigureElement.setAttribute("draggable", "true");
+            PromotedFigureElement.setAttribute("ondragstart", "drag(event)");
+            PromotedFigureElement.appendChild(document.createTextNode(PromotedFigureValue));
+
+            console.log(PromotedFigureElement)
+
+            targetCell.appendChild(PromotedFigureElement)
+
+            boardState[targetCellBoardPosition.id] = droppedFigureElement.id
+        }
 }

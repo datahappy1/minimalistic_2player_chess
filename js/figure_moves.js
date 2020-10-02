@@ -16,11 +16,14 @@ function checkFigureAlreadyMoved(figure, position){
     }
 }
 
-function checkFigureMoveBlockedByFigureColor(figure, position){
+function checkFigureMoveBlockedBy(figure, position){
     let _boardPosition = boardState[position];
     
     if (_boardPosition == null){
         return "none";
+    }
+    if (_boardPosition.endsWith("king")){
+        return "king";
     }
     if (_boardPosition.startsWith("white")){
         return "white";
@@ -68,13 +71,13 @@ function getAllowedMovesForFigureOnPosition(figure, position){
             }
         
         for (i = 0; i < _allowedMovesBase.length; i++) {
-            if (checkFigureMoveBlockedByFigureColor(figure, _allowedMovesBase[i]) === "none"){
+            if (checkFigureMoveBlockedBy(figure, _allowedMovesBase[i]) === "none"){
                 allowedMoves.push(_allowedMovesBase[i])
             }
         }        
-                
+
         for (i = 0; i < _captureMovesBase.length; i++) {
-            if (checkFigureMoveBlockedByFigureColor(figure, _captureMovesBase[i]) === "black"){
+            if (checkFigureMoveBlockedBy(figure, _captureMovesBase[i]) === "black"){
                 captureMoves.push(_captureMovesBase[i])
             }
             
@@ -104,13 +107,13 @@ function getAllowedMovesForFigureOnPosition(figure, position){
             }
         
         for (i = 0; i < _allowedMovesBase.length; i++) {
-            if (checkFigureMoveBlockedByFigureColor(figure, _allowedMovesBase[i]) === "none"){
+            if (checkFigureMoveBlockedBy(figure, _allowedMovesBase[i]) === "none"){
                 allowedMoves.push(_allowedMovesBase[i])
             }
         }        
                 
         for (i = 0; i < _captureMovesBase.length; i++) {
-            if (checkFigureMoveBlockedByFigureColor(figure, _captureMovesBase[i]) === "white"){
+            if (checkFigureMoveBlockedBy(figure, _captureMovesBase[i]) === "white"){
                 captureMoves.push(_captureMovesBase[i])
             }
             
@@ -149,7 +152,7 @@ function getAllowedMovesForFigureOnPosition(figure, position){
         catch(err){}     
         
         for (i = 0; i < _allowedMovesBase.length; i++) {
-            if (checkFigureMoveBlockedByFigureColor(figure, _allowedMovesBase[i]) !== figureColor){
+            if (checkFigureMoveBlockedBy(figure, _allowedMovesBase[i]) !== figureColor && checkFigureMoveBlockedBy(figure, _allowedMovesBase[i]) !== "king"){
                 allowedMoves.push(_allowedMovesBase[i])
             }
         }
@@ -164,7 +167,7 @@ function getAllowedMovesForFigureOnPosition(figure, position){
         
         for (i = 1; i <= rows.length; i++) {
             try {_pos = indexToColumnMap[column_index].concat(checkPositionColumnInIndexMap(position_column + rows[i]))
-                if (checkFigureMoveBlockedByFigureColor(figure, _pos) === "none"){
+                if (checkFigureMoveBlockedBy(figure, _pos) === "none"){
                     _allowedMovesBase.push(_pos)
                 }
                 else {
@@ -177,7 +180,7 @@ function getAllowedMovesForFigureOnPosition(figure, position){
 
         for (i = 1; i <= rows.length; i++) {
             try {_pos = indexToColumnMap[column_index].concat(checkPositionColumnInIndexMap(position_column - rows[i]))
-                if (checkFigureMoveBlockedByFigureColor(figure, _pos) === "none"){
+                if (checkFigureMoveBlockedBy(figure, _pos) === "none"){
                     _allowedMovesBase.push(_pos)
                 }
                 else {
@@ -190,7 +193,7 @@ function getAllowedMovesForFigureOnPosition(figure, position){
 
         for (i = 1; i <= rows.length; i++) {
             try {_pos = indexToColumnMap[column_index + rows[i]].concat(checkPositionColumnInIndexMap(position_column))
-                if (checkFigureMoveBlockedByFigureColor(figure, _pos) === "none"){
+                if (checkFigureMoveBlockedBy(figure, _pos) === "none"){
                     _allowedMovesBase.push(_pos)
                 }
                 else {
@@ -203,7 +206,7 @@ function getAllowedMovesForFigureOnPosition(figure, position){
 
         for (i = 1; i <= rows.length; i++) {
             try {_pos = indexToColumnMap[column_index - rows[i]].concat(checkPositionColumnInIndexMap(position_column))
-                if (checkFigureMoveBlockedByFigureColor(figure, _pos) === "none"){
+                if (checkFigureMoveBlockedBy(figure, _pos) === "none"){
                     _allowedMovesBase.push(_pos)
                 }
                 else {
@@ -215,7 +218,7 @@ function getAllowedMovesForFigureOnPosition(figure, position){
         }
 
         for (i = 0; i < _allowedMovesBase.length; i++) {
-            if (checkFigureMoveBlockedByFigureColor(figure, _allowedMovesBase[i]) !== figureColor){
+            if (checkFigureMoveBlockedBy(figure, _allowedMovesBase[i]) !== figureColor && checkFigureMoveBlockedBy(figure, _allowedMovesBase[i]) !== "king"){
                 allowedMoves.push(_allowedMovesBase[i])
             }
         }
@@ -230,7 +233,7 @@ function getAllowedMovesForFigureOnPosition(figure, position){
 
         for (i = 1; i <= rows.length; i++) {
             try {_pos = indexToColumnMap[column_index + rows[i]].concat(checkPositionColumnInIndexMap(position_column + rows[i]))
-                if (checkFigureMoveBlockedByFigureColor(figure, _pos) === "none"){
+                if (checkFigureMoveBlockedBy(figure, _pos) === "none"){
                     _allowedMovesBase.push(_pos)
                 }
                 else {
@@ -243,7 +246,7 @@ function getAllowedMovesForFigureOnPosition(figure, position){
 
         for (i = 1; i <= rows.length; i++) {
             try {_pos = indexToColumnMap[column_index - rows[i]].concat(checkPositionColumnInIndexMap(position_column - rows[i]))
-                if (checkFigureMoveBlockedByFigureColor(figure, _pos) === "none"){
+                if (checkFigureMoveBlockedBy(figure, _pos) === "none"){
                     _allowedMovesBase.push(_pos)
                 }
                 else {
@@ -256,7 +259,7 @@ function getAllowedMovesForFigureOnPosition(figure, position){
 
         for (i = 1; i <= rows.length; i++) {
             try {_pos = indexToColumnMap[column_index + rows[i]].concat(checkPositionColumnInIndexMap(position_column - rows[i]))
-                if (checkFigureMoveBlockedByFigureColor(figure, _pos) === "none"){
+                if (checkFigureMoveBlockedBy(figure, _pos) === "none"){
                     _allowedMovesBase.push(_pos)
                 }
                 else {
@@ -269,7 +272,7 @@ function getAllowedMovesForFigureOnPosition(figure, position){
 
         for (i = 1; i <= rows.length; i++) {
             try {_pos = indexToColumnMap[column_index - rows[i]].concat(checkPositionColumnInIndexMap(position_column + rows[i]))
-                if (checkFigureMoveBlockedByFigureColor(figure, _pos) === "none"){
+                if (checkFigureMoveBlockedBy(figure, _pos) === "none"){
                     _allowedMovesBase.push(_pos)
                 }
                 else {
@@ -281,7 +284,7 @@ function getAllowedMovesForFigureOnPosition(figure, position){
         }
 
         for (i = 0; i < _allowedMovesBase.length; i++) {
-            if (checkFigureMoveBlockedByFigureColor(figure, _allowedMovesBase[i]) !== figureColor){
+            if (checkFigureMoveBlockedBy(figure, _allowedMovesBase[i]) !== figureColor && checkFigureMoveBlockedBy(figure, _allowedMovesBase[i]) !== "king"){
                 allowedMoves.push(_allowedMovesBase[i])
             }
         }
@@ -296,7 +299,7 @@ function getAllowedMovesForFigureOnPosition(figure, position){
 
         for (i = 1; i <= rows.length; i++) {
             try {_pos = indexToColumnMap[column_index].concat(checkPositionColumnInIndexMap(position_column + rows[i]))
-                if (checkFigureMoveBlockedByFigureColor(figure, _pos) === "none"){
+                if (checkFigureMoveBlockedBy(figure, _pos) === "none"){
                     _allowedMovesBase.push(_pos)
                 }
                 else {
@@ -309,7 +312,7 @@ function getAllowedMovesForFigureOnPosition(figure, position){
 
         for (i = 1; i <= rows.length; i++) {
             try {_pos = indexToColumnMap[column_index].concat(checkPositionColumnInIndexMap(position_column - rows[i]))
-                if (checkFigureMoveBlockedByFigureColor(figure, _pos) === "none"){
+                if (checkFigureMoveBlockedBy(figure, _pos) === "none"){
                     _allowedMovesBase.push(_pos)
                 }
                 else {
@@ -322,7 +325,7 @@ function getAllowedMovesForFigureOnPosition(figure, position){
 
         for (i = 1; i <= rows.length; i++) {
             try {_pos = indexToColumnMap[column_index + rows[i]].concat(checkPositionColumnInIndexMap(position_column))
-                if (checkFigureMoveBlockedByFigureColor(figure, _pos) === "none"){
+                if (checkFigureMoveBlockedBy(figure, _pos) === "none"){
                     _allowedMovesBase.push(_pos)
                 }
                 else {
@@ -335,7 +338,7 @@ function getAllowedMovesForFigureOnPosition(figure, position){
 
         for (i = 1; i <= rows.length; i++) {
             try {_pos = indexToColumnMap[column_index - rows[i]].concat(checkPositionColumnInIndexMap(position_column))
-                if (checkFigureMoveBlockedByFigureColor(figure, _pos) === "none"){
+                if (checkFigureMoveBlockedBy(figure, _pos) === "none"){
                     _allowedMovesBase.push(_pos)
                 }
                 else {
@@ -348,7 +351,7 @@ function getAllowedMovesForFigureOnPosition(figure, position){
 
         for (i = 1; i <= rows.length; i++) {
             try {_pos = indexToColumnMap[column_index + rows[i]].concat(checkPositionColumnInIndexMap(position_column + rows[i]))
-                if (checkFigureMoveBlockedByFigureColor(figure, _pos) === "none"){
+                if (checkFigureMoveBlockedBy(figure, _pos) === "none"){
                     _allowedMovesBase.push(_pos)
                 }
                 else {
@@ -361,7 +364,7 @@ function getAllowedMovesForFigureOnPosition(figure, position){
 
         for (i = 1; i <= rows.length; i++) {
             try {_pos = indexToColumnMap[column_index - rows[i]].concat(checkPositionColumnInIndexMap(position_column - rows[i]))
-                if (checkFigureMoveBlockedByFigureColor(figure, _pos) === "none"){
+                if (checkFigureMoveBlockedBy(figure, _pos) === "none"){
                     _allowedMovesBase.push(_pos)
                 }
                 else {
@@ -374,7 +377,7 @@ function getAllowedMovesForFigureOnPosition(figure, position){
 
         for (i = 1; i <= rows.length; i++) {
             try {_pos = indexToColumnMap[column_index + rows[i]].concat(checkPositionColumnInIndexMap(position_column - rows[i]))
-                if (checkFigureMoveBlockedByFigureColor(figure, _pos) === "none"){
+                if (checkFigureMoveBlockedBy(figure, _pos) === "none"){
                     _allowedMovesBase.push(_pos)
                 }
                 else {
@@ -387,7 +390,7 @@ function getAllowedMovesForFigureOnPosition(figure, position){
 
         for (i = 1; i <= rows.length; i++) {
             try {_pos = indexToColumnMap[column_index - rows[i]].concat(checkPositionColumnInIndexMap(position_column + rows[i]))
-                if (checkFigureMoveBlockedByFigureColor(figure, _pos) === "none"){
+                if (checkFigureMoveBlockedBy(figure, _pos) === "none"){
                     _allowedMovesBase.push(_pos)
                 }
                 else {
@@ -399,7 +402,7 @@ function getAllowedMovesForFigureOnPosition(figure, position){
         }
 
         for (i = 0; i < _allowedMovesBase.length; i++) {
-            if (checkFigureMoveBlockedByFigureColor(figure, _allowedMovesBase[i]) !== figureColor){
+            if (checkFigureMoveBlockedBy(figure, _allowedMovesBase[i]) !== figureColor && checkFigureMoveBlockedBy(figure, _allowedMovesBase[i]) !== "king"){
                 allowedMoves.push(_allowedMovesBase[i])
             }
         }
@@ -452,7 +455,7 @@ function getAllowedMovesForFigureOnPosition(figure, position){
         catch(err){};
         
         for (i = 0; i < _allowedMovesBase.length; i++) {
-            if (checkFigureMoveBlockedByFigureColor(figure, _allowedMovesBase[i]) !== figureColor){
+            if (checkFigureMoveBlockedBy(figure, _allowedMovesBase[i]) !== figureColor && checkFigureMoveBlockedBy(figure, _allowedMovesBase[i]) !== "king"){
                 allowedMoves.push(_allowedMovesBase[i])
             }
         }
