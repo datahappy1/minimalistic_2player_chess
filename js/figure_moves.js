@@ -33,9 +33,9 @@ function checkFigureMoveBlockedBy(figure, position){
     }
 }
 
-function checkPositionColumnInIndexMap(position_column){
-    if (typeof indexMap[position_column] !== "undefined"){
-        return position_column
+function checkPositionColumnInIndexMap(positionColumn){
+    if (typeof indexMap[positionColumn] !== "undefined"){
+        return positionColumn
     }
     else {
         throw new Error("undefined grid position");
@@ -468,3 +468,4 @@ function getAllowedMovesForFigureOnPosition(figure, position){
     }
     
 }
+

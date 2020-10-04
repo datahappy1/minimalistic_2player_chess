@@ -70,10 +70,22 @@ function drop(ev) {
         if (allowedTargetCells.includes(targetCellBoardPosition.id) == false){
             return
         }
-        
+
         targetCell.appendChild(droppedFigureElement);
         lastMoveSide = droppedFigureColor;
         boardState[targetCellBoardPosition.id] = droppedFigureElement.id
+
+        if (checkIfPawnPromotion(droppedFigure, targetCellBoardPosition.id) === true){
+            alert("Pawn promotion");
+            targetCell.removeChild(droppedFigureElement);
+            lostFigures.append(droppedFigureElement);
+
+            PromotedFigureElement = constructPawnPromotion(droppedFigureColor)
+
+            targetCell.appendChild(PromotedFigureElement)
+            boardState[targetCellBoardPosition.id] = PromotedFigureElement.id
+        }
+
     }
     
     if (targetCell.className == "figure"){
@@ -89,38 +101,47 @@ function drop(ev) {
         }
 
         targetCell.parentNode.appendChild(droppedFigureElement);
-        targetCell.remove(targetFigureElement);
-        lostFigures.append(targetFigureElement);
+
         lastMoveSide = droppedFigureColor;
         boardState[targetCellBoardPosition.id] = droppedFigureElement.id
+
+        if (checkIfPawnPromotion(droppedFigure, targetCellBoardPosition.id) === true){
+            alert("Pawn promotion");
+            // TODO wrong color of lost figures - fix with only one lost figures arr
+            targetCell.parentNode.removeChild(droppedFigureElement);
+            lostFigures.append(droppedFigureElement);
+
+            PromotedFigureElement = constructPawnPromotion(droppedFigureColor)
+
+            targetCell.parentNode.appendChild(PromotedFigureElement)
+            boardState[targetCellBoardPosition.id] = PromotedFigureElement.id
+        }
+
+        targetCell.parentNode.removeChild(targetFigureElement);
+        lostFigures.append(targetFigureElement);
+
     }
 
-    if (checkIfPawnPromotion(droppedFigure, targetCellBoardPosition.id) == true){
-            alert("Pawn promotion")
+}
 
-            targetCell.removeChild(droppedFigureElement);
-            lostFigures.append(droppedFigureElement);
-            lastMoveSide = droppedFigureColor;
+function constructPawnPromotion(droppedFigureColor){
 
-            //TODO construct all 4: queen,rook,bishop,knight in lost items
-            PromotedFigureName = droppedFigureColor + "_queen_promoted" ;
-            if (droppedFigureColor === "white"){
-                PromotedFigureValue = "\u2655";
-            }
-            else {
-                PromotedFigureValue = "\u265B";
-            }
-            PromotedFigureElement = document.createElement("div");
-            PromotedFigureElement.setAttribute("class", "figure");
-            PromotedFigureElement.setAttribute("id", PromotedFigureName);
-            PromotedFigureElement.setAttribute("draggable", "true");
-            PromotedFigureElement.setAttribute("ondragstart", "drag(event)");
-            PromotedFigureElement.appendChild(document.createTextNode(PromotedFigureValue));
+    //TODO construct all 4: queen,rook,bishop,knight in lost items
+    var PromotedQueenRandomId = Math.random().toString(36).slice(-5);
 
-            console.log(PromotedFigureElement)
+    PromotedFigureName = droppedFigureColor + "_queen_promoted_" + PromotedQueenRandomId ;
+    if (droppedFigureColor === "white"){
+        PromotedFigureValue = "\u2655";
+    }
+    else {
+        PromotedFigureValue = "\u265B";
+    }
+    PromotedFigureElement = document.createElement("div");
+    PromotedFigureElement.setAttribute("class", "figure");
+    PromotedFigureElement.setAttribute("id", PromotedFigureName);
+    PromotedFigureElement.setAttribute("draggable", "true");
+    PromotedFigureElement.setAttribute("ondragstart", "drag(event)");
+    PromotedFigureElement.appendChild(document.createTextNode(PromotedFigureValue));
 
-            targetCell.appendChild(PromotedFigureElement)
-
-            boardState[targetCellBoardPosition.id] = droppedFigureElement.id
-        }
+    return PromotedFigureElement
 }

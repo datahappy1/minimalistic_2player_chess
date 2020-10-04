@@ -74,6 +74,7 @@ function checkIfPawnPromotion(droppedFigure, targetCellBoardPosition){
     }
 }
 
+
 function checkIfCastlingPossible(){
 
 }
